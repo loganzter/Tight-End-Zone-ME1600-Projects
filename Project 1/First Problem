@@ -1,1 +1,45 @@
-print("hello world!")
+"""
+Project notes:
+
+    Forces acting in the problem (5):
+    Down: The load weight on the forklift (Wl) and the combined forklift (Wf) and operator (Wp) weight (Wf + Wp)
+    Up: The ground pushes the two front wheels up with a force of 2F and the ground pushes on the two rear wheels with a force of 2R
+
+    Equilibrium - forkilft isnt accceleration nor rotating so forces must add to zero and moments must add to zero
+
+    Equations:
+        Part a)
+            Verticle force balance: Everything pushing up should equal everything pushing down to equal zero
+                2F + 2R - Wl - Wf - Wp = 0
+
+            Moment balance: The sum of the moments about any point should equal zero. Pivot point will be front wheel. Generic formula: Moment = Force * Distance from pivot point
+                The Wl Force is in front of the L1 and is pulling the nose down. Wl only acts on L1.
+                The Wf + Wp Force is behind the L1 and is pulling the nose up. Wf + Wp only acts on L2.
+                The 2R Force is behind L2 and L3 and is pushing the back up. 2R acts on L2 and L3.
+                The 2F Force is exactly at the pivot point and does not create a moment. 2F is nothing.
+
+                Moment equation: Wl * L1 + 2R * (L2 + L3) - (Wf + Wp) * L2 = 0
+
+                If we are taking tipping as positive, then (Wl * L1) and (2R * (L2 + L3)) are positive because they are trying to tip the forkilft.
+                The ((Wf +Wp) * L2) is negative because it is trying to keep the forklift from tipping.
+        
+        Part b)
+            The maximum stable load is the load that will cause the forklift to tip. This means that the moment equation will equal zero. We can solve for Wl in terms of L1, L2, L3, Wf, and Wp.
+
+            Wl * L1 + 2R * (L2 + L3) - (Wf + Wp) * L2 = 0
+            Wl * L1 = (Wf + Wp) * L2 - 2R * (L2 + L3)
+            Wl = ((Wf + Wp) * L2 - 2R * (L2 + L3)) / L1
+        
+
+
+"""
+
+print("Stability of a Forklift")
+print("-----------------------")
+print("1. Find maximum stable load")
+print("2. Graph maximum stable load as a function of L1")
+print("3. Graph maximum stable load as a function of L2")
+print("4. Graph maximum stable load as a function of the forklift weight")
+print("5. Quit")
+
+playerSelectionInput = input("Please select an option (1-5): ")
