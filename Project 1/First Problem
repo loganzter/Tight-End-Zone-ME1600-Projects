@@ -1,4 +1,5 @@
 """
+
 Project 1
 Project notes:
 
@@ -25,15 +26,47 @@ Project notes:
                 The ((Wf +Wp) * L2) is negative because it is trying to keep the forklift from tipping.
         
         Part b)
-            The maximum stable load is the load that will cause the forklift to tip. This means that the moment equation will equal zero. We can solve for Wl in terms of L1, L2, L3, Wf, and Wp.
-
-            Wl * L1 + 2R * (L2 + L3) - (Wf + Wp) * L2 = 0
-            Wl * L1 = (Wf + Wp) * L2 - 2R * (L2 + L3)
+            We are asked to find the load the forklift is carrying. To do this we can rearrange the equation to determine the load.
+            Through this our load will essentially be Y, and we can graph this with respect to another variable.
+            By rearranging the moment equation we get:
+            
             Wl = ((Wf + Wp) * L2 - 2R * (L2 + L3)) / L1
-        
 
+            The maximum stable load is the maxmimum load where the forklift wont tip. We can solve for Wl in terms of L1, L2, L3, Wf, and Wp.
+            In this equation for maxmimum load, we can set R to zero because we are looking for the exact weight load where the forklift will just not tip.
+            As the load increases, the reaction force from the ground to the rear wheels decreases. The maximum load tells us what load makes the rear wheels have no reaction force.
+            Because of this, we can set R to zero and solve for Wl which will give us the maximum load the forklift can carry without tipping.
+
+            Wl = ((Wf + Wp) * L2 - 2R * (L2 + L3)) / L1
+                2R * (L2 + L3) = 0 because R is zero
+            
+            Due to this we get this equation for maximum load:
+            Wl = ((Wf + Wp) * L2) / L1
+
+            In this equation our Y is Wl. If we were to graph this, one of our variables, either L1 or L2, will become our X and we will graph with respect to those.
+
+            Equations for R and F:
+                To solve for R we can take this equation and rearrange it for R: Wl * L1 + 2R * (L2 + L3) - (Wf + Wp) * L2 = 0
+                After this we get:
+
+                R = (((Wf + Wp) * L2) - (Wl * L1)) / (2 * (L2 + L3))
+
+                To solve for F we can take this equation and rearrange it for F: 2F + 2R - Wl - Wf - Wp = 0
+                After this we get:
+
+                F = ((Wl + Wf + Wp) / 2) - R
+
+                For this equation we will need to solve for R before this one to use the value of R in this one.
 
 """
+# This is the function we are using for deriving outputs which allows the user to quit the program at any time by entering q.
+def ask(prompt):
+    answer = input(prompt)
+    if answer.lower() == "q":
+        print("Exiting program...")
+        exit()
+    else:
+        return answer
 
 print("Stability of a Forklift")
 print("-----------------------")
@@ -41,6 +74,6 @@ print("1. Find maximum stable load")
 print("2. Graph maximum stable load as a function of L1")
 print("3. Graph maximum stable load as a function of L2")
 print("4. Graph maximum stable load as a function of the forklift weight")
-print("5. Quit")
+print("Quit any time by entering 'q'")
 
-playerSelectionInput = input("Please select an option (1-5): ")
+playerSelectionInput = ask("Please select an option (1-4): ")
