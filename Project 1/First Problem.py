@@ -74,5 +74,4 @@ print("2. Graph maximum stable load as a function of L1")
 print("3. Graph maximum stable load as a function of L2")
 print("4. Graph maximum stable load as a function of the forklift weight")
 print("Quit any time by entering 'q'")
-
 playerSelectionInput = ask("Please select an option (1-4): ")
