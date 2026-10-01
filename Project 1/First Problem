@@ -1,5 +1,4 @@
 """
-
 Project 1
 Project notes:
 
@@ -60,13 +59,28 @@ Project notes:
 
 """
 # This is the function we are using for deriving outputs which allows the user to quit the program at any time by entering q.
+# This function also allows us to make sure the user is inputing a positive number.
+# By using a simple function like this we dont have to repeat the same code over and over again for each input we need from the user.
 def ask(prompt):
     answer = input(prompt)
-    if answer.lower() == "q":
-        print("Exiting program...")
-        exit()
+    try:
+        if answer.lower() == 'q': # Determines if the answer variable is q, if not then it moves on.
+            print("Exitting Program.")
+            exit() # If answer is q then it quits the entire code.
+        answer = float(answer) #Since it was not q, it trys to turn answer into a float variable.
+    except ValueError: # If the try fails, then it is probably a string or boolean value, so we tell the user to input again.
+        print("Invalid input. Please enter a number.")
+        return ask(prompt) # This line makes the user input again.
+
+    if answer < 0: # All our inputs should be positive so this ensures that every input from the user is positive.
+        print("Invalid input. Please enter a positive number.")
+        return ask(prompt) # This line makes the user input again.
     else:
-        return answer
+        return answer # If everyone is happy it returns the answer variable as a float.
+
+# Beginning questions for the user
+# Asks the user to select what they want to do
+# Tells the user that they can quit the code anytime by entering 'q'
 
 print("Stability of a Forklift")
 print("-----------------------")
@@ -76,5 +90,23 @@ print("3. Graph maximum stable load as a function of L2")
 print("4. Graph maximum stable load as a function of the forklift weight")
 print("Quit any time by entering 'q'")
 
-playerSelectionInput = ask("Please select an option (1-4): ")
+# This below part ensures the user inputs a whole number between 1 and 4.
+# We only need to do this here because this is the only part that requires an a whole number and a number between 1 and 4.
+# Every other part only requires a positive float number which is handled by the ask function.
+
+while True:
+
+    playerSelectionInput = ask("Please select an option (1-4): ") # This line asks the user to input a whole number between 1-4
+    if not playerSelectionInput.is_integer(): # This line is to ensure the user didnt put in a decimal number. If they did, it will tell them to input again.
+        print("Invalid selection. Please select a whole number between 1 and 4.")
+    else: # This runs if the user inputted a whole number.
+        try: # We use this to try and check if the user inputted a string or boolean value. If so, it will fail as it cannot assign a string or boolean value as an integer.
+            playerSelectionInput = int(playerSelectionInput)
+        except ValueError: # If it fails then it will ask the user to input again.
+            print("Invalid selection. Please select a integer number between 1 and 4.")
+        if playerSelectionInput < 1 or playerSelectionInput > 4: # If the input is not between 1 and 4, it will ask for another input.
+            print("Invalid selection. Please select a integer number between 1 and 4.")
+        else: # If everything is good it should skip the try and if statements and break out of the code.
+            break
+
 
