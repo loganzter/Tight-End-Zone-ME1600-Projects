@@ -1,7 +1,8 @@
 """
 Project 1
-Project notes:
 
+
+Project notes:
     Forces acting in the problem (5):
     Down: The load weight on the forklift (Wl) and the combined forklift (Wf) and operator (Wp) weight (Wf + Wp)
     Up: The ground pushes the two front wheels up with a force of 2F and the ground pushes on the two rear wheels with a force of 2R
@@ -12,7 +13,6 @@ Project notes:
         Part a)
             Verticle force balance: Everything pushing up should equal everything pushing down to equal zero
                 2F + 2R - Wl - Wf - Wp = 0
-
             Moment balance: The sum of the moments about any point should equal zero. Pivot point will be front wheel. Generic formula: Moment = Force * Distance from pivot point
                 The Wl Force is in front of the L1 and is pulling the nose down. Wl only acts on L1.
                 The Wf + Wp Force is behind the L1 and is pulling the nose up. Wf + Wp only acts on L2.
@@ -56,7 +56,7 @@ Project notes:
                 F = ((Wl + Wf + Wp) / 2) - R
 
                 For this equation we will need to solve for R before this one to use the value of R in this one.
-
+           
 """
 # This is the function we are using for deriving outputs which allows the user to quit the program at any time by entering q.
 # This function also allows us to make sure the user is inputing a positive number.
