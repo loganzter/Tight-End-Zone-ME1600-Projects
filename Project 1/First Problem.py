@@ -1,7 +1,6 @@
 """
 Project 1
 
-
 Project notes:
     Forces acting in the problem (5):
     Down: The load weight on the forklift (Wl) and the combined forklift (Wf) and operator (Wp) weight (Wf + Wp)
