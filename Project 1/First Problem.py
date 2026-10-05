@@ -38,7 +38,8 @@ Project notes:
                 2R * (L2 + L3) = 0 because R is zero
             
             Due to this we get this equation for maximum load:
-            Wl = ((Wf + Wp) * L2) / L1
+
+    Wl_max = ((Wf + Wp) * L2) / L1
 
             In this equation our Y is Wl. If we were to graph this, one of our variables, either L1 or L2, will become our X and we will graph with respect to those.
 
@@ -46,12 +47,12 @@ Project notes:
                 To solve for R we can take this equation and rearrange it for R: Wl * L1 + 2R * (L2 + L3) - (Wf + Wp) * L2 = 0
                 After this we get:
 
-                R = (((Wf + Wp) * L2) - (Wl * L1)) / (2 * (L2 + L3))
+    R = (((Wf + Wp) * L2) - (Wl * L1)) / (2 * (L2 + L3))
 
                 To solve for F we can take this equation and rearrange it for F: 2F + 2R - Wl - Wf - Wp = 0
                 After this we get:
 
-                F = ((Wl + Wf + Wp) / 2) - R
+    F = ((Wl + Wf + Wp) / 2) - R
 
                 For this equation we will need to solve for R before this one to use the value of R in this one.
            
