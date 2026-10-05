@@ -109,3 +109,21 @@ while True:
             break
 
 
+if playerSelectionInput == 1: #Does question 1, which is to find the maximum stable load.
+    print ("You have selected option 1: Find maximum stable load")
+
+    Wf = ask("Please enter the weight of the forklift (Wf) in pounds: ")
+    Wp = ask("Please enter the weight of the operator (Wp) in pounds: ")
+    Wl = ask("Please enter the weight of the load (Wl) in pounds: ")
+    L1 = ask("Please enter the distance from the front wheel to the load (L1) in feet: ")
+    L2 = ask("Please enter the distance from the front wheel to the center of mass of the forklift and operator (L2) in feet: ")
+    L3 = ask("Please enter the distance from the rear wheel to the center of mass of the forklift and operator (L3) in feet: ")
+
+    Wl_max = ((Wf + Wp) * L2) / L1
+    R = (((Wf + Wp) * L2) - (Wl * L1)) / (2 * (L2 + L3))
+    F = ((Wl + Wf + Wp) / 2) - R
+
+    
+    print(f"The reaction force on the rear wheels (R) is: {R:.2f} pounds")
+    print(f"The reaction force on the front wheels (F) is: {F:.2f} pounds")
+    print(f"The maximum stable load (Wl_max) is: {Wl_max:.2f} pounds")
