@@ -57,6 +57,10 @@ Project notes:
                 For this equation we will need to solve for R before this one to use the value of R in this one.
            
 """
+
+import matplotlib.pyplot as plt
+import numpy as np
+
 # This is the function we are using for deriving outputs which allows the user to quit the program at any time by entering q.
 # This function also allows us to make sure the user is inputing a positive number.
 # By using a simple function like this we dont have to repeat the same code over and over again for each input we need from the user.
@@ -127,3 +131,63 @@ if playerSelectionInput == 1: #Does question 1, which is to find the maximum sta
     print(f"The reaction force on the rear wheels (R) is: {R:.2f} pounds")
     print(f"The reaction force on the front wheels (F) is: {F:.2f} pounds")
     print(f"The maximum stable load (Wl_max) is: {Wl_max:.2f} pounds")
+
+if playerSelectionInput == 2: #Does question 2, which is to graph maximum stable load as a function of L1.
+
+    print ("You have selected option 2: Graph maximum stable load as a function of L1")
+
+    Wf = ask("Please enter the weight of the forklift (Wf) in pounds: ")
+    Wp = ask("Please enter the weight of the operator (Wp) in pounds: ")
+    L2 = ask("Please enter the distance from the front wheel to the center of mass of the forklift and operator (L2) in feet: ")
+    L1_max = ask("Please enter the maximum distance from the front wheel to the load (L1) in feet: ")
+    pointNumber = ask("Please enter the number of points you want to graph: ")
+
+    L1_x = np.linspace(0.1, L1_max, int(pointNumber))  # Avoid division by zero by starting from 0.1
+    Wl_y = ((Wf + Wp) * L2) / L1_x
+
+    plt.plot(L1_x, Wl_y)
+    plt.title("Maximum Stable Load as a Function of L1")
+    plt.xlabel("Distance from Front Wheel to Load (L1) [ft]")
+    plt.ylabel("Maximum Stable Load (Wl_max) [lbs]")
+    plt.show()
+
+if playerSelectionInput == 3: #Does question 3, which is to graph maximum stable load as a function of L2.
+
+    print ("You have selected option 3: Graph maximum stable load as a function of L2")
+
+    Wf = ask("Please enter the weight of the forklift (Wf) in pounds: ")
+    Wp = ask("Please enter the weight of the operator (Wp) in pounds: ")
+    L1 = ask("Please enter the distance from the front wheel to the load (L1) in feet: ")
+    L2_max = ask("Please enter the maximum distance from the front wheel to the center of mass of the forklift and operator (L2) in feet: ")
+    pointNumber = ask("Please enter the number of points you want to graph: ")
+
+    L2_x = np.linspace(0, L2_max, int(pointNumber))
+    Wl_y = ((Wf + Wp) * L2_x) / L1
+
+    plt.plot(L2_x, Wl_y)
+    plt.xlim(left=0)
+    plt.title("Maximum Stable Load as a Function of L2")
+    plt.xlabel("Distance from Front Wheel to Center of Mass (L2) [ft]")
+    plt.ylabel("Maximum Stable Load (Wl_max) [lbs]")
+    plt.show()
+
+if playerSelectionInput == 4: #Does question 4, which is to graph maximum stable load as a function of L1.
+
+    print ("You have selected option 4: Graph maximum stable load as a function of Wf")
+
+    Wf_max = ask("Please enter the weight of the forklift (Wf) in pounds: ")
+    Wp = ask("Please enter the weight of the operator (Wp) in pounds: ")
+    L1 = ask("Please enter the maximum distance from the front wheel to the load (L1) in feet: ")
+    L2 = ask("Please enter the distance from the front wheel to the center of mass of the forklift and operator (L2) in feet: ")
+    pointNumber = ask("Please enter the number of points you want to graph: ")
+
+    Wf_x = np.linspace(0, Wf_max, int(pointNumber))
+    Wl_y = ((Wf_x + Wp) * L2) / L1
+
+    plt.plot(Wf_x, Wl_y)
+    plt.xlim(left=0)
+    plt.title("Maximum Stable Load as a Function of Wf")
+    plt.xlabel("Weight of Forklift (Wf) [lbs]")
+    plt.ylabel("Maximum Stable Load (Wl_max) [lbs]")
+    plt.show()
+    
