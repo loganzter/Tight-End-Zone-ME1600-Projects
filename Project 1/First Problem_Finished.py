@@ -213,7 +213,7 @@ while True:
     if playerSelectionInput == 3: #Does question 3, which is to graph maximum stable load as a function of L2.
         questionThree()
         
-    if playerSelectionInput == 4: #Does question 4, which is to graph maximum stable load as a function of L1.
+    if playerSelectionInput == 4: #Does question 4, which is to graph maximum stable load as a function of Wf.
         questionFour()
         
 
