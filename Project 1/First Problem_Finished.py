@@ -187,7 +187,7 @@ while True:
     print("3. Graph maximum stable load as a function of L2")
     print("4. Graph maximum stable load as a function of the forklift weight")
     print("5. Quit")
-
+    
 
     # This below part ensures the user inputs a whole number between 1 and 5.
     # We only need to do this here because this is the only part that requires an a whole number and a number between 1 and 5.
@@ -221,3 +221,5 @@ while True:
         print ("You have selected option 5: Quit")
         print("Exitting Program.")
         exit() #exits the program
+
+
