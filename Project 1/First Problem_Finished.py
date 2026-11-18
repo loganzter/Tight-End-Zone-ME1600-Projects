@@ -75,47 +75,18 @@ def ask(prompt):
         print("Invalid input. Please enter a number.")
         return ask(prompt) # This line makes the user input again.
 
-    if answer < 0: # All our inputs should be positive so this ensures that every input from the user is positive.
-        print("Invalid input. Please enter a positive number.")
+    if answer <= 0: # All our inputs should be positive so this ensures that every input from the user is positive.
+        print("Invalid input. Please enter a positive number that is not zero.")
         return ask(prompt) # This line makes the user input again.
     else:
-        return answer # If everyone is happy it returns the answer variable as a float.
+        return answer # If everything is good it returns the answer variable as a float.
 
-# Beginning questions for the user
-# Asks the user to select what they want to do
-# Tells the user that they can quit the code anytime by entering 'q'
+#Functions that do all of the questions
 
-print("Stability of a Forklift")
-print("-----------------------")
-print("1. Find maximum stable load")
-print("2. Graph maximum stable load as a function of L1")
-print("3. Graph maximum stable load as a function of L2")
-print("4. Graph maximum stable load as a function of the forklift weight")
-print("Quit any time by entering 'q'")
-
-# This below part ensures the user inputs a whole number between 1 and 4.
-# We only need to do this here because this is the only part that requires an a whole number and a number between 1 and 4.
-# Every other part only requires a positive float number which is handled by the ask function.
-
-while True:
-
-    playerSelectionInput = ask("Please select an option (1-4): ") # This line asks the user to input a whole number between 1-4
-    if not playerSelectionInput.is_integer(): # This line is to ensure the user didnt put in a decimal number. If they did, it will tell them to input again.
-        print("Invalid selection. Please select a whole number between 1 and 4.")
-    else: # This runs if the user inputted a whole number.
-        try: # We use this to try and check if the user inputted a string or boolean value. If so, it will fail as it cannot assign a string or boolean value as an integer.
-            playerSelectionInput = int(playerSelectionInput)
-        except ValueError: # If it fails then it will ask the user to input again.
-            print("Invalid selection. Please select a integer number between 1 and 4.")
-        if playerSelectionInput < 1 or playerSelectionInput > 4: # If the input is not between 1 and 4, it will ask for another input.
-            print("Invalid selection. Please select a integer number between 1 and 4.")
-        else: # If everything is good it should skip the try and if statements and break out of the code.
-            break
-
-
-if playerSelectionInput == 1: #Does question 1, which is to find the maximum stable load.
+def questionOne():
     print ("You have selected option 1: Find maximum stable load")
-
+    
+    #Questions that give the variables for the next equations
     Wf = ask("Please enter the weight of the forklift (Wf) in pounds: ")
     Wp = ask("Please enter the weight of the operator (Wp) in pounds: ")
     Wl = ask("Please enter the weight of the load (Wl) in pounds: ")
@@ -123,71 +94,132 @@ if playerSelectionInput == 1: #Does question 1, which is to find the maximum sta
     L2 = ask("Please enter the distance from the front wheel to the center of mass of the forklift and operator (L2) in feet: ")
     L3 = ask("Please enter the distance from the rear wheel to the center of mass of the forklift and operator (L3) in feet: ")
 
-    Wl_max = ((Wf + Wp) * L2) / L1
-    R = (((Wf + Wp) * L2) - (Wl * L1)) / (2 * (L2 + L3))
-    F = ((Wl + Wf + Wp) / 2) - R
+    #Equations for maximum stable load, reaction force on the rear wheels, and reaction force on the front wheels.
+    Wl_max = ((Wf + Wp) * L2) / L1 #Equation for maximum stable Load
+    R = (((Wf + Wp) * L2) - (Wl * L1)) / (2 * (L2 + L3)) #Equation for reaction force on the rear wheels
+    F = ((Wl + Wf + Wp) / 2) - R #Equation for reaction force on the front wheels
 
-    
-    print(f"The reaction force on the rear wheels (R) is: {R:.2f} pounds")
-    print(f"The reaction force on the front wheels (F) is: {F:.2f} pounds")
-    print(f"The maximum stable load (Wl_max) is: {Wl_max:.2f} pounds")
+    #Prints the results of the calculations
+    print(f"The reaction force on the rear wheels (R) is: {R:.4f} pounds")
+    print(f"The reaction force on the front wheels (F) is: {F:.4f} pounds")
+    print(f"The maximum stable load (Wl_max) is: {Wl_max:.4f} pounds")
 
-if playerSelectionInput == 2: #Does question 2, which is to graph maximum stable load as a function of L1.
-
+def questionTwo():
     print ("You have selected option 2: Graph maximum stable load as a function of L1")
 
+    #Questions that give the variables for the next equations
     Wf = ask("Please enter the weight of the forklift (Wf) in pounds: ")
     Wp = ask("Please enter the weight of the operator (Wp) in pounds: ")
-    L2 = ask("Please enter the distance from the front wheel to the center of mass of the forklift and operator (L2) in feet: ")
-    L1_max = ask("Please enter the maximum distance from the front wheel to the load (L1) in feet: ")
+    L2 = ask("Please enter the distance from the front wheel to the center of mass of the forklift and operator (L2): ")
+    L1_max = ask("Please enter the maximum distance from the front wheel to the load (L1): ")
     pointNumber = ask("Please enter the number of points you want to graph: ")
 
     L1_x = np.linspace(0.1, L1_max, int(pointNumber))  # Avoid division by zero by starting from 0.1
-    Wl_y = ((Wf + Wp) * L2) / L1_x
+    Wl_y = ((Wf + Wp) * L2) / L1_x #Give the equation for maximum stable load as a function of L1
 
-    plt.plot(L1_x, Wl_y)
-    plt.title("Maximum Stable Load as a Function of L1")
-    plt.xlabel("Distance from Front Wheel to Load (L1) [ft]")
-    plt.ylabel("Maximum Stable Load (Wl_max) [lbs]")
+    plt.plot(L1_x, Wl_y) #Plots the graph
+    plt.ylim(top=140000) #Sets the y-axis maximum to 140000
+    plt.xlim(left=0) #Sets the x-axis limit to start at 0
+    plt.ylim(bottom=0) #Sets the y-axis limit to start at 0
+    plt.yticks(np.arange(0, 140001, 20000)) #Includes 140000 as the top y-axis tick
+    plt.ticklabel_format(axis='y', style='plain') #Displays y-axis values without scientific notation
+    plt.title("Maximum Stable Load as a Function of L1") #Sets the title of the graph
+    plt.xlabel("Distance from Front Wheel to Load (L1) [ft]") #Sets the x-axis label of the graph
+    plt.ylabel("Maximum Stable Load (Wl_max) [lbs]") #Sets the y-axis label of the graph
     plt.show()
 
-if playerSelectionInput == 3: #Does question 3, which is to graph maximum stable load as a function of L2.
-
+def questionThree():
     print ("You have selected option 3: Graph maximum stable load as a function of L2")
 
+    #Questions that give the variables for the next equations
     Wf = ask("Please enter the weight of the forklift (Wf) in pounds: ")
     Wp = ask("Please enter the weight of the operator (Wp) in pounds: ")
-    L1 = ask("Please enter the distance from the front wheel to the load (L1) in feet: ")
-    L2_max = ask("Please enter the maximum distance from the front wheel to the center of mass of the forklift and operator (L2) in feet: ")
+    L1 = ask("Please enter the distance from the front wheel to the load (L1): ")
+    L2_max = ask("Please enter the maximum distance from the front wheel to the center of mass of the forklift and operator (L2): ")
     pointNumber = ask("Please enter the number of points you want to graph: ")
 
     L2_x = np.linspace(0, L2_max, int(pointNumber))
-    Wl_y = ((Wf + Wp) * L2_x) / L1
+    Wl_y = ((Wf + Wp) * L2_x) / L1 #gives the equation for maximum stable load as a function of L2
 
-    plt.plot(L2_x, Wl_y)
-    plt.xlim(left=0)
-    plt.title("Maximum Stable Load as a Function of L2")
-    plt.xlabel("Distance from Front Wheel to Center of Mass (L2) [ft]")
-    plt.ylabel("Maximum Stable Load (Wl_max) [lbs]")
+    plt.plot(L2_x, Wl_y) #Plots the graph
+    plt.xlim(left=0) #Sets the x-axis limit to start at 0
+    plt.ylim(bottom=0) #Sets the y-axis limit to start at 0
+    plt.title("Maximum Stable Load as a Function of L2") #Sets the title of the graph
+    plt.xlabel("Distance from Front Wheel to Center of Mass (L2) [ft]") #Sets the x-axis label of the graph
+    plt.ylabel("Maximum Stable Load (Wl_max) [lbs]") #Sets the y-axis label of the graph
     plt.show()
 
-if playerSelectionInput == 4: #Does question 4, which is to graph maximum stable load as a function of L1.
-
+def questionFour():
     print ("You have selected option 4: Graph maximum stable load as a function of Wf")
 
+    #Questions that give the variables for the next equations
     Wf_max = ask("Please enter the weight of the forklift (Wf) in pounds: ")
     Wp = ask("Please enter the weight of the operator (Wp) in pounds: ")
-    L1 = ask("Please enter the maximum distance from the front wheel to the load (L1) in feet: ")
-    L2 = ask("Please enter the distance from the front wheel to the center of mass of the forklift and operator (L2) in feet: ")
+    L1 = ask("Please enter the maximum distance from the front wheel to the load (L1): ")
+    L2 = ask("Please enter the distance from the front wheel to the center of mass of the forklift and operator (L2): ")
     pointNumber = ask("Please enter the number of points you want to graph: ")
 
     Wf_x = np.linspace(0, Wf_max, int(pointNumber))
-    Wl_y = ((Wf_x + Wp) * L2) / L1
+    Wl_y = ((Wf_x + Wp) * L2) / L1 #gives the equation for maximum stable load as a function of Wf
 
-    plt.plot(Wf_x, Wl_y)
-    plt.xlim(left=0)
-    plt.title("Maximum Stable Load as a Function of Wf")
-    plt.xlabel("Weight of Forklift (Wf) [lbs]")
-    plt.ylabel("Maximum Stable Load (Wl_max) [lbs]")
+    plt.plot(Wf_x, Wl_y) #Plots the graph
+    plt.xlim(left=0) #Sets the x-axis limit to start at 0
+    plt.ylim(bottom=0) #Sets the y-axis limit to start at 0
+    plt.title("Maximum Stable Load as a Function of Wf") #Sets the title of the graph
+    plt.xlabel("Weight of Forklift (Wf) [lbs]") #Sets the x-axis label of the graph
+    plt.ylabel("Maximum Stable Load (Wl_max) [lbs]") #Sets the y-axis label of the graph
     plt.show()
+
+
+while True:
+
+    print("Please select an option:")
+
+    # Beginning questions for the user
+    # Asks the user to select what they want to do
+    # Tells the user that they can quit the code anytime by entering 'q'
+
+    print("Stability of a Forklift")
+    print("Quit any time by entering 'q'")
+    print("-----------------------")
+    print("1. Find maximum stable load")
+    print("2. Graph maximum stable load as a function of L1")
+    print("3. Graph maximum stable load as a function of L2")
+    print("4. Graph maximum stable load as a function of the forklift weight")
+    print("5. Quit")
     
+
+    # This below part ensures the user inputs a whole number between 1 and 5.
+    # We only need to do this here because this is the only part that requires an a whole number and a number between 1 and 5.
+    # Every other part only requires a positive float number which is handled by the ask function.
+
+    while True:
+
+        playerSelectionInput = ask("Please select an option (1-5): ") # This line asks the user to input a whole number between 1-5
+        if not playerSelectionInput.is_integer(): # This line is to ensure the user didnt put in a decimal number. If they did, it will tell them to input again.
+            print("Invalid selection. Please select a whole number between 1 and 5.")
+        else: # This runs if the user inputted a whole number.
+            if playerSelectionInput < 1 or playerSelectionInput > 5: # If the input is not between 1 and 5, it will ask for another input.
+                print("Invalid selection. Please select a integer number between 1 and 5.")
+            else: # If everything is good it should skip the try and if statements and break out of the code.
+                break
+
+    if playerSelectionInput == 1: #Does question 1, which is to find the maximum stable load.
+        questionOne()
+
+    if playerSelectionInput == 2: #Does question 2, which is to graph maximum stable load as a function of L1.
+        questionTwo()
+
+    if playerSelectionInput == 3: #Does question 3, which is to graph maximum stable load as a function of L2.
+        questionThree()
+        
+    if playerSelectionInput == 4: #Does question 4, which is to graph maximum stable load as a function of Wf.
+        questionFour()
+        
+
+    if playerSelectionInput == 5: #Does question 5, which is to quit the program.
+        print ("You have selected option 5: Quit")
+        print("Exitting Program.")
+        exit() #exits the program
+
+
